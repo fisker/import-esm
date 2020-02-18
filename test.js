@@ -5,7 +5,7 @@ var assert = require('assert')
 var importMjs = require('./index')
 
 if (typeof Promise === 'undefined') {
-  require('es-promise').polyfill()
+  global.Promise = require('./third-party/lie.min')
 }
 
 global.import = function() {}
