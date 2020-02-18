@@ -12,6 +12,7 @@
     "mjs"
   ],
   "repository": "fisker/import-esm",
+  "funding": "https://github.com/fisker/import-esm?sponsor=1",
   "license": "MIT",
   "author": {
     "name": "fisker Cheung",
