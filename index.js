@@ -1,9 +1,10 @@
 'use strict'
 
+var TEST_MODULE = 'data:text/javascript,'
+
 function check() {
   try {
-    // eslint-disable-next-line no-new-func
-    return new Function('return import("data:text/javascript,")')().then(
+    return require('./import')(TEST_MODULE).then(
       function() {
         return true
       },
