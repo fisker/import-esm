@@ -49,6 +49,12 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
+  "nyc": {
+    "reporter": [
+      "text",
+      "lcov"
+    ]
+  },
   "devDependencies": {
     "@commitlint/cli": "8.3.5",
     "@fisker/commitlint-config": "1.1.7",
