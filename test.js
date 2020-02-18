@@ -23,7 +23,7 @@ equal(typeof isEsmSupported, 'function')
 
 const check = isEsmSupported()
 equal(typeof check, 'object')
-equal(Object.prototype.toString.call(check), '[object Promise]')
+// equal(Object.prototype.toString.call(check), '[object Promise]')
 equal(typeof check.then, 'function')
 
 check.then(function(result) {
