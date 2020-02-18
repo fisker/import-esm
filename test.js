@@ -1,19 +1,18 @@
-const assert = require('assert')
-const isEsmSupported = require('.')
+var assert = require('assert')
+var isEsmSupported = require('.')
 
 global.import = function() {}
 
-const equal = assert.strictEqual || assert.equal
-const isExperimentalModulesFlag =
-  process.execArgv[0] === '--experimental-modules'
-const engine = Number(
+var equal = assert.strictEqual || assert.equal
+var isExperimentalModulesFlag = process.execArgv[0] === '--experimental-modules'
+var engine = Number(
   process.version
     .slice(1)
     .split('.')
     .shift()
 )
 
-let expectResult = engine >= 13
+var expectResult = engine >= 13
 
 if (engine === 12 && isExperimentalModulesFlag) {
   expectResult = true
