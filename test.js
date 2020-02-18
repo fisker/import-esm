@@ -64,6 +64,12 @@ if (supported) {
     equal('default' in module, true)
     equal(module.name, 'foo')
   })
+  importEsm('./fixtures/commonjs-package/name.mjs').then(function(module) {
+    equal(module.name, 'commonjs-package')
+  })
+  importEsm('./fixtures/module-package/name.mjs').then(function(module) {
+    equal(module.name, 'module-package')
+  })
 } else {
   load.then(null, function(error) {
     equal(error instanceof Error, true)
