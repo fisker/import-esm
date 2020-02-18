@@ -22,6 +22,7 @@ module.exports = {
         'no-var': 'off',
         strict: 'off',
         'object-shorthand': 'off',
+        'prefer-template': 'off',
       },
     },
   ],

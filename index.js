@@ -1,11 +1,14 @@
 'use strict'
 
+var RANDOM_NUMBER = Math.random()
+var TEST_MODULE = 'data:text/javascript,export default ' + RANDOM_NUMBER + ';'
+
 function check() {
   try {
     // eslint-disable-next-line no-new-func
-    return new Function('return import("data:text/javascript,")')().then(
-      function() {
-        return true
+    return new Function('return import("' + TEST_MODULE + '")')().then(
+      function(module) {
+        return module && module.default === RANDOM_NUMBER
       },
       function() {
         return false
