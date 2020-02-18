@@ -8,8 +8,6 @@ if (typeof Promise === 'undefined') {
   global.Promise = require('./third-party/lie.min')
 }
 
-global.import = function() {}
-
 var equal = assert.strictEqual || assert.equal
 var isExperimentalModulesFlag = process.execArgv[0] === '--experimental-modules'
 var engine = Number(
@@ -23,6 +21,19 @@ var supported = engine >= 13
 
 if (engine === 12 && isExperimentalModulesFlag) {
   supported = true
+}
+
+// Make sure global `import` function doesn't effect result
+if (supported) {
+  global.import = function() {
+    return Promise.reject(new Error('Error from `global.import`.'))
+  }
+} else {
+  global.import = function() {
+    return Promise.resolve({
+      default: 'A fake module from `global.import`.'
+    })
+  }
 }
 
 function isPromise(promise) {

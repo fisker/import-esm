@@ -12,6 +12,7 @@ function check() {
       }
     )
   } catch (_) {}
+
   return Promise.resolve(false)
 }
 
