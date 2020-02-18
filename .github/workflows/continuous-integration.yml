@@ -40,20 +40,20 @@ jobs:
           node-version: ${{ matrix.node_version }}
 
       - name: Install Dependencies
+        if: matrix.node_version == '12'
         run: yarn
 
-      # - name: Download Artifact
-      #   uses: actions/download-artifact@master
-      #   with:
-      #     name: dist
-      #     path: dist
-
       - name: Run Test
+        if: matrix.node_version != '12'
+        run: yarn test-coverage
+
+      - name: Run Test Coverage
+        if: matrix.node_version == '12'
         run: yarn test-coverage
 
       - name: Upload Coverage
         uses: coverallsapp/github-action@master
-        if: success()
+        if: matrix.node_version == '12'
         continue-on-error: true
         with:
           github-token: ${{ secrets.github_token }}
