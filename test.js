@@ -25,12 +25,19 @@ if (engine === 12 && isExperimentalModulesFlag) {
   supported = true
 }
 
+function isPromise(promise) {
+  var toStringTag = Object.prototype.toString.call(promise)
+  return (
+    typeof promise === 'object' &&
+    promise.then === 'function' &&
+    (toStringTag === '[object Promise]' || toStringTag === '[object Object]')
+  )
+}
+
 equal(typeof importMjs, 'function')
 
 var check = importMjs.check()
-equal(typeof check, 'object')
-equal(Object.prototype.toString.call(check), '[object Promise]')
-equal(typeof check.then, 'function')
+equal(isPromise(check), true)
 
 check.then(function(result) {
   equal(typeof result, 'boolean')
@@ -38,8 +45,7 @@ check.then(function(result) {
 })
 
 var load = importMjs('./fixtures/test.mjs')
-equal(typeof load, 'object')
-equal(Object.prototype.toString.call(load), '[object Promise]')
+equal(isPromise(load), true)
 equal(typeof load.then, 'function')
 if (supported) {
   load.then(function(result) {
