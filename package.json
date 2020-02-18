@@ -1,8 +1,10 @@
 {
   "name": "import-esm",
-  "version": "0.0.0",
+  "version": "0.0.2",
+  "description": "Import ECMAScript modules in the safe way",
   "keywords": [
     "esm",
+    "ES Module",
     "ECMAScript Modules",
     "Dynamic import",
     "import",
@@ -10,6 +12,7 @@
     "mjs"
   ],
   "repository": "fisker/import-esm",
+  "funding": "https://github.com/fisker/import-esm?sponsor=1",
   "license": "MIT",
   "author": {
     "name": "fisker Cheung",
@@ -46,6 +49,12 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "nyc": {
+    "reporter": [
+      "text",
+      "lcov"
+    ]
   },
   "devDependencies": {
     "@commitlint/cli": "8.3.5",

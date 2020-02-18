@@ -1,6 +1,20 @@
 # import-esm
 
-> Import ES Module in the safe way
+[![Build Status][github_actions_badge]][github_actions_link]
+[![Coverage][coveralls_badge]][coveralls_link]
+[![Npm Version][package_version_badge]][package_link]
+[![MIT License][license_badge]][license_link]
+
+[github_actions_badge]: https://img.shields.io/github/workflow/status/fisker/import-esm/CI/master?style=flat-square
+[github_actions_link]: https://github.com/fisker/import-esm/actions?query=branch%3Amaster
+[coveralls_badge]: https://img.shields.io/coveralls/github/fisker/import-esm/master?style=flat-square
+[coveralls_link]: https://coveralls.io/github/fisker/import-esm?branch=master
+[license_badge]: https://img.shields.io/npm/l/import-esm.svg?style=flat-square
+[license_link]: https://github.com/fisker/import-esm/blob/master/license
+[package_version_badge]: https://img.shields.io/npm/v/import-esm.svg?style=flat-square
+[package_link]: https://www.npmjs.com/package/import-esm
+
+> Import ECMAScript modules in the safe way
 
 ## Motivation
 
@@ -69,4 +83,5 @@ const importEsm = require('import-esm')
 
 ## Known Issue(s)
 
-On `Node.js@<=0.10`, you need polyfill `Promise` yourself.
+- On `Node.js@<=0.10`, you need polyfill `Promise` yourself.
+- ESM support in Node.js is experimental, though enabled by default in Node.js 13. _You will see messages like `ExperimentalWarning: The ESM module loader is experimental` in console. These are emitted by Node.js, not from this module._

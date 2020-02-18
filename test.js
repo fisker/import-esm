@@ -55,13 +55,20 @@ check.then(function(result) {
   equal(result, supported)
 })
 
-var load = importEsm('./fixtures/test.mjs')
+var load = importEsm('./fixtures/foo.mjs')
 equal(isPromise(load), true)
 equal(typeof load.then, 'function')
 if (supported) {
   load.then(function(module) {
     equal(typeof module, 'object')
     equal('default' in module, true)
+    equal(module.name, 'foo')
+  })
+  importEsm('./fixtures/commonjs-package/name.mjs').then(function(module) {
+    equal(module.name, 'commonjs-package')
+  })
+  importEsm('./fixtures/module-package/name.mjs').then(function(module) {
+    equal(module.name, 'module-package')
   })
 } else {
   load.then(null, function(error) {
