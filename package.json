@@ -1,9 +1,10 @@
 {
   "name": "import-esm",
   "version": "0.0.1",
-  "description": "ECMAScript modules",
+  "description": "Import ECMAScript modules in the safe way",
   "keywords": [
     "esm",
+    "ES Module",
     "ECMAScript Modules",
     "Dynamic import",
     "import",
