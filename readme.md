@@ -1,5 +1,13 @@
 # import-esm
 
+[![Build Status][github_actions_badge]][github_actions_link]
+[![Coveralls][coveralls_badge]][coveralls_link]
+
+[github_actions_badge]: https://img.shields.io/github/workflow/status/fisker/import-esm/CI/master?style=flat-square
+[github_actions_link]: https://github.com/fisker/import-esm/actions?query=branch%3Amaster
+[coveralls_badge]: https://img.shields.io/coveralls/github/fisker/import-esm/master?style=flat-square
+[coveralls_link]: https://coveralls.io/github/fisker/import-esm?branch=master
+
 > Import ECMAScript modules in the safe way
 
 ## Motivation
