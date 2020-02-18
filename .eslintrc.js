@@ -13,8 +13,10 @@ module.exports = {
   parserOptions: {},
   extends: ['@fisker'],
   settings: {},
-  rules: {},
   plugins: [],
   globals: {},
   overrides: [],
+  rules: {
+    'no-var': 'off',
+  },
 }
