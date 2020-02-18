@@ -57,7 +57,9 @@ jobs:
           matrix.node_version != '7' &&
           matrix.node_version != '6' &&
           matrix.node_version != '5' &&
-          matrix.node_version != '4'
+          matrix.node_version != '4' &&
+          matrix.node_version != '0.12' &&
+          matrix.node_version != '0.10'
         run: node --experimental-modules ./test.js
 
       - name: Run Test Coverage
