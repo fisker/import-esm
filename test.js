@@ -1,6 +1,8 @@
 const assert = require('assert')
 const isEsmSupported = require('.')
 
+global.import = function() {}
+
 const equal = assert.strictEqual || assert.equal
 const isExperimentalModulesFlag =
   process.execArgv[0] === '--experimental-modules'
