@@ -1,30 +1,18 @@
 'use strict'
 
-var resolve =
-  typeof Promise !== 'undefined'
-    ? Promise.resolve.bind(Promise)
-    : function(value) {
-        return {
-          // eslint-disable-next-line object-shorthand
-          then: function(resolve) {
-            resolve(value)
-          }
-        }
-      }
-
 function check() {
   try {
     // eslint-disable-next-line no-new-func
     return new Function('return import("data:text/javascript,")')().then(
       function() {
-        return resolve(true)
+        return true
       },
       function() {
-        return resolve(false)
+        return false
       }
     )
   } catch (_) {}
-  return resolve(false)
+  return Promise.resolve(false)
 }
 
 function load(file) {

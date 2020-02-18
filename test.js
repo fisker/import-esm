@@ -4,6 +4,10 @@ var assert = require('assert')
 // eslint-disable-next-line unicorn/import-index
 var importMjs = require('./index')
 
+if (typeof Promise === 'undefined') {
+  global.Promise = require('lie')
+}
+
 global.import = function() {}
 
 var equal = assert.strictEqual || assert.equal
@@ -25,7 +29,7 @@ equal(typeof importMjs, 'function')
 
 var check = importMjs.check()
 equal(typeof check, 'object')
-// equal(Object.prototype.toString.call(check), '[object Promise]')
+equal(Object.prototype.toString.call(check), '[object Promise]')
 equal(typeof check.then, 'function')
 
 check.then(function(result) {
