@@ -1,7 +1,7 @@
 'use strict'
 
 var resolve =
-  typeof Promise === 'undefined'
+  typeof Promise !== 'undefined'
     ? Promise.resolve()
     : function(value) {
         return {
