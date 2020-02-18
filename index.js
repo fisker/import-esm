@@ -1,11 +1,12 @@
-var TEST_MODULE_URL = 'data:text/javascript,'
+'use strict'
 
 var resolve =
   typeof Promise === 'undefined'
     ? Promise.resolve()
     : function(value) {
         return {
-          then() {
+          // eslint-disable-next-line object-shorthand
+          then: function() {
             return value
           },
         }
@@ -14,7 +15,7 @@ var resolve =
 function check() {
   try {
     // eslint-disable-next-line no-new-func
-    return new Function(`return import("${TEST_MODULE_URL}")`)().then(
+    return new Function('return import("data:text/javascript,")')().then(
       function() {
         return resolve(true)
       },

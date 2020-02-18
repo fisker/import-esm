@@ -18,5 +18,6 @@ module.exports = {
   overrides: [],
   rules: {
     'no-var': 'off',
+    strict: 'off',
   },
 }

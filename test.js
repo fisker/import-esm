@@ -1,5 +1,8 @@
+'use strict'
+
 var assert = require('assert')
-var isEsmSupported = require('.')
+// eslint-disable-next-line unicorn/import-index
+var isEsmSupported = require('./index')
 
 global.import = function() {}
 
@@ -20,7 +23,7 @@ if (engine === 12 && isExperimentalModulesFlag) {
 
 equal(typeof isEsmSupported, 'function')
 
-const check = isEsmSupported()
+var check = isEsmSupported()
 equal(typeof check, 'object')
 // equal(Object.prototype.toString.call(check), '[object Promise]')
 equal(typeof check.then, 'function')
