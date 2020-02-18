@@ -45,7 +45,7 @@ jobs:
 
       - name: Run Test
         if: matrix.node_version != '12'
-        run: yarn test-coverage
+        run: yarn test
 
       - name: Run Test Coverage
         if: matrix.node_version == '12'
