@@ -1,7 +1,7 @@
 {
   "name": "import-esm",
   "version": "0.0.0",
-  "repository": "git@github.com:fisker/import-esm.git",
+  "repository": "fisker/import-esm",
   "license": "MIT",
   "author": {
     "name": "fisker Cheung",
@@ -58,5 +58,6 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
-  }
+  },
+  "home": "https://github.com/fisker/import-esm#readme"
 }

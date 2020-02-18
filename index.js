@@ -15,16 +15,15 @@ function check() {
   return Promise.resolve(false)
 }
 
-function load(file) {
+function load(url) {
   return check().then(function(supported) {
     if (supported) {
-      return require('./import')(file)
+      return require('./import')(url)
     }
 
     throw new Error('ECMAScript Modules are not supported.')
   })
 }
 
-load.check = check
-
 module.exports = load
+module.exports.check = check
