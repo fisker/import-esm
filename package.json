@@ -1,7 +1,7 @@
 {
-  "name": "is-esm-supported",
+  "name": "import-mjs",
   "version": "0.0.0",
-  "repository": "git@github.com:fisker/is-esm-supported.git",
+  "repository": "git@github.com:fisker/import-mjs.git",
   "license": "MIT",
   "author": {
     "name": "fisker Cheung",
@@ -10,9 +10,7 @@
   },
   "sideEffects": false,
   "main": "index.js",
-  "files": [
-    "index.js"
-  ],
+  "files": [],
   "scripts": {
     "clean": "run-p clean:*",
     "clean:dist": "del-cli dist",

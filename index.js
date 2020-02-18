@@ -2,13 +2,13 @@
 
 var resolve =
   typeof Promise !== 'undefined'
-    ? Promise.resolve()
+    ? Promise.resolve.bind(Promise)
     : function(value) {
         return {
           // eslint-disable-next-line object-shorthand
-          then: function() {
-            return value
-          },
+          then: function(resolve) {
+            resolve(value)
+          }
         }
       }
 
@@ -27,4 +27,16 @@ function check() {
   return resolve(false)
 }
 
-module.exports = check
+function load(file) {
+  return check().then(function(supported) {
+    if (supported) {
+      return require('./import')(file)
+    }
+
+    throw new Error('ECMAScript Modules are not supported.')
+  })
+}
+
+load.check = check
+
+module.exports = load

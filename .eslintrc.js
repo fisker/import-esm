@@ -15,9 +15,14 @@ module.exports = {
   settings: {},
   plugins: [],
   globals: {},
-  overrides: [],
-  rules: {
-    'no-var': 'off',
-    strict: 'off',
-  },
+  overrides: [
+    {
+      files: '{index,import,test}.js',
+      rules: {
+        'no-var': 'off',
+        strict: 'off',
+        'object-shorthand': 'off',
+      },
+    },
+  ],
 }
