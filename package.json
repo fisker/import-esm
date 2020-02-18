@@ -1,6 +1,14 @@
 {
   "name": "import-esm",
   "version": "0.0.0",
+  "keywords": [
+    "esm",
+    "ECMAScript Modules",
+    "Dynamic import",
+    "import",
+    "load",
+    "mjs"
+  ],
   "repository": "fisker/import-esm",
   "license": "MIT",
   "author": {

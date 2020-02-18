@@ -27,7 +27,7 @@ const importEsm = require('import-esm')
 
 ;(async () => {
   try {
-    console.log(await importEsm('foo'))
+    console.log(await importEsm('./foo.mjs'))
     // If your engine support ECMAScript Modules
     //=> [Module] { ... }
   } catch (error) {
