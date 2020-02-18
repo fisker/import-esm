@@ -51,7 +51,11 @@ jobs:
 
       - name: Run Test
         if: matrix.node_version != '12'
-        run: yarn test
+        run: node ./test.js
+
+      - name: Run Test with --experimental-modules
+        if: matrix.node_version != '12'
+        run: node --experimental-modules ./test.js
 
       - name: Run Test Coverage
         if: matrix.node_version == '12'
