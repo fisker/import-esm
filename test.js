@@ -2,7 +2,7 @@
 
 var assert = require('assert')
 // eslint-disable-next-line unicorn/import-index
-var importMjs = require('./index')
+var importEsm = require('./index')
 
 if (typeof Promise === 'undefined') {
   global.Promise = require('./third-party/lie.min')
@@ -29,14 +29,14 @@ function isPromise(promise) {
   var toStringTag = Object.prototype.toString.call(promise)
   return (
     typeof promise === 'object' &&
-    promise.then === 'function' &&
-    (toStringTag === '[object Promise]' || toStringTag === '[object Object]')
+    (toStringTag === '[object Promise]' || toStringTag === '[object Object]') &&
+    typeof promise.then === 'function'
   )
 }
 
-equal(typeof importMjs, 'function')
+equal(typeof importEsm, 'function')
 
-var check = importMjs.check()
+var check = importEsm.check()
 equal(isPromise(check), true)
 
 check.then(function(result) {
@@ -44,13 +44,13 @@ check.then(function(result) {
   equal(result, supported)
 })
 
-var load = importMjs('./fixtures/test.mjs')
+var load = importEsm('./fixtures/test.mjs')
 equal(isPromise(load), true)
 equal(typeof load.then, 'function')
 if (supported) {
-  load.then(function(result) {
-    equal(typeof result, 'object')
-    equal('default' in result, true)
+  load.then(function(module) {
+    equal(typeof module, 'object')
+    equal('default' in module, true)
   })
 } else {
   load.then(null, function(error) {
