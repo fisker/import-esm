@@ -1,6 +1,7 @@
 {
   "name": "import-esm",
   "version": "0.0.0",
+  "description": "ECMAScript modules",
   "keywords": [
     "esm",
     "ECMAScript Modules",

@@ -1,6 +1,6 @@
 # import-esm
 
-> Import ES Module in the safe way
+> Import ECMAScript modules in the safe way
 
 ## Motivation
 
@@ -69,4 +69,5 @@ const importEsm = require('import-esm')
 
 ## Known Issue(s)
 
-On `Node.js@<=0.10`, you need polyfill `Promise` yourself.
+- On `Node.js@<=0.10`, you need polyfill `Promise` yourself.
+- ESM support in Node.js is experimental, though enabled by default in Node.js 13. _You will see messages like `ExperimentalWarning: The ESM module loader is experimental` in console. These are emitted by Node.js, not from this module._
