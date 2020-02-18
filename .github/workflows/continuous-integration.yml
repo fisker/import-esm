@@ -22,6 +22,53 @@ jobs:
           - "12"
           - "11"
           - "10"
+
+    name: Node.js ${{ matrix.node_version }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+        with:
+          depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@master
+        with:
+          node-version: ${{ matrix.node_version }}
+
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Run Test
+        run: yarn test-coverage
+
+      - name: Upload Coverage
+        uses: coverallsapp/github-action@master
+        continue-on-error: true
+        with:
+          github-token: ${{ secrets.github_token }}
+          parallel: true
+
+  coverage:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sending webhook to Coveralls
+        uses: coverallsapp/github-action@master
+        continue-on-error: true
+        with:
+          github-token: ${{ secrets.github_token }}
+          parallel-finished: true
+
+  legacy:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - "ubuntu-latest"
+          - "macos-latest"
+          - "windows-latest"
+        node_version:
           - "9"
           - "8"
           - "7"
@@ -44,15 +91,11 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
 
-      - name: Install Dependencies
-        if: matrix.node_version == '12'
-        run: yarn
-
       - name: Run Test
-        if: matrix.node_version != '12'
         run: node ./test.js
 
       - name: Run Test with --experimental-modules
+        # those version don't support `--experimental-modules`
         if: |
           matrix.node_version != '7' &&
           matrix.node_version != '6' &&
@@ -61,29 +104,6 @@ jobs:
           matrix.node_version != '0.12' &&
           matrix.node_version != '0.10'
         run: node --experimental-modules ./test.js
-
-      - name: Run Test Coverage
-        if: matrix.node_version == '12'
-        run: yarn test-coverage
-
-      - name: Upload Coverage
-        uses: coverallsapp/github-action@master
-        if: matrix.node_version == '12'
-        continue-on-error: true
-        with:
-          github-token: ${{ secrets.github_token }}
-          parallel: true
-
-  coverage:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Sending webhook to Coveralls
-        uses: coverallsapp/github-action@master
-        continue-on-error: true
-        with:
-          github-token: ${{ secrets.github_token }}
-          parallel-finished: true
 
   lint:
     name: Lint
