@@ -12,9 +12,10 @@ function check() {
         return false
       }
     )
-  } catch (_) {
-    return Promise.resolve(false)
-  }
+  } catch (_) {}
+
+  /* istanbul ignore next */
+  return Promise.resolve(false)
 }
 
 function load(url) {
