@@ -12,9 +12,9 @@ function check() {
         return false
       }
     )
-  } catch (_) {}
-
-  return Promise.resolve(false)
+  } catch (_) {
+    return Promise.resolve(false)
+  }
 }
 
 function load(url) {
