@@ -11,6 +11,10 @@
     "load",
     "mjs"
   ],
+  "homepage": "https://github.com/fisker/import-esm#readme",
+  "bugs": {
+    "url": "https://github.com/fisker/import-esm/issues"
+  },
   "repository": "fisker/import-esm",
   "funding": "https://github.com/fisker/import-esm?sponsor=1",
   "license": "MIT",
@@ -77,6 +81,5 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
-  },
-  "home": "https://github.com/fisker/import-esm#readme"
+  }
 }
