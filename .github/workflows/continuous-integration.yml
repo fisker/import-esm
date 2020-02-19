@@ -43,22 +43,27 @@ jobs:
         run: yarn test-coverage
 
       - name: Upload Coverage
-        uses: coverallsapp/github-action@master
-        continue-on-error: true
+        uses: codecov/codecov-action@v1
         with:
-          github-token: ${{ secrets.github_token }}
-          parallel: true
+          token: ${{ secrets.CODECOV_TOKEN }}
 
-  coverage:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Sending webhook to Coveralls
-        uses: coverallsapp/github-action@master
-        continue-on-error: true
-        with:
-          github-token: ${{ secrets.github_token }}
-          parallel-finished: true
+  #     - name: Upload Coverage
+  #       uses: coverallsapp/github-action@master
+  #       continue-on-error: true
+  #       with:
+  #         github-token: ${{ secrets.github_token }}
+  #         parallel: true
+
+  # coverage:
+  #   needs: test
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Sending webhook to Coveralls
+  #       uses: coverallsapp/github-action@master
+  #       continue-on-error: true
+  #       with:
+  #         github-token: ${{ secrets.github_token }}
+  #         parallel-finished: true
 
   legacy:
     strategy:
