@@ -7,7 +7,7 @@ var UNSUPPORTED_MESSAGE = 'ECMAScript Modules are not supported.'
 
 function importModule(url) {
   if (!import_) {
-    import_ = require('./import')
+    import_ = require('./import.cjs')
   }
   return import_(url)
 }

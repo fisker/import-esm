@@ -1,8 +1,7 @@
 'use strict'
 
 var assert = require('assert')
-// eslint-disable-next-line unicorn/import-index
-var importEsm = require('./index')
+var importEsm = require('./index.cjs')
 
 if (typeof Promise === 'undefined') {
   global.Promise = require('./third-party/lie.min')
@@ -115,7 +114,8 @@ importEsm
     testCheck()
     testLoad()
   })
-  .catch(function() {
+  .catch(function(error) {
     console.log('`testLoad` should never throws')
+    console.error(error)
     process.exit(1)
   })

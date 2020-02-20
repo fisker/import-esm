@@ -39,8 +39,16 @@ jobs:
       - name: Install Dependencies
         run: yarn
 
-      - name: Run Test
-        run: yarn test-coverage
+      - name: Run Test cjs
+        run: yarn test-coverage:cjs
+
+      - name: Run Test mjs
+        if: matrix.node_version == '13'
+        run: yarn test-coverage:mjs
+
+      - name: Run Test --experimental-modules
+        if: matrix.node_version == '13' || matrix.node_version == '12'
+        run: yarn test-coverage:mjs
 
       - name: Upload Coverage
         uses: codecov/codecov-action@v1
@@ -97,7 +105,7 @@ jobs:
           node-version: ${{ matrix.node_version }}
 
       - name: Run Test
-        run: node ./test.js
+        run: node ./test.cjs
 
       - name: Run Test with --experimental-modules
         # those version don't support `--experimental-modules`
@@ -108,7 +116,7 @@ jobs:
           matrix.node_version != '4' &&
           matrix.node_version != '0.12' &&
           matrix.node_version != '0.10'
-        run: node --experimental-modules ./test.js
+        run: node --experimental-modules ./test.cjs
 
   lint:
     name: Lint

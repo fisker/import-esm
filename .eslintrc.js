@@ -17,7 +17,7 @@ module.exports = {
   globals: {},
   overrides: [
     {
-      files: '{index,import,test}.js',
+      files: '{index,import,test}.cjs',
       extends: [
         'plugin:es/no-2019',
         'plugin:es/no-2018',
@@ -35,9 +35,15 @@ module.exports = {
       },
     },
     {
-      files: 'test.js',
+      files: 'test.[cm]js',
       rules: {
         'unicorn/no-process-exit': 'off',
+      },
+    },
+    {
+      files: 'test.mjs',
+      rules: {
+        'import/no-named-as-default-member': 'off',
       },
     },
   ],

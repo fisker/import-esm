@@ -24,10 +24,11 @@
     "url": "https://www.fiskercheung.com/"
   },
   "sideEffects": false,
-  "main": "index.js",
+  "main": "index.cjs",
   "files": [
-    "index.js",
-    "import.js"
+    "index.cjs",
+    "index.mjs",
+    "import.cjs"
   ],
   "scripts": {
     "clean": "run-p clean:*",
@@ -43,11 +44,15 @@
     "lint:eslint": "eslint \"**/*.{js,mjs,vue}\"",
     "lint:markdown": "markdownlint \"**/*.md\" --ignore \"**/node_modules/**\"",
     "lint:package-json": "yarn run format:package-json --check",
-    "lint:prettier": "prettier \"**/*.{css,html,js,json,less,md,scss,ts,vue,yaml,yml}\" --check",
+    "lint:prettier": "prettier \"**/*.{css,html,js,cjs,mjs,json,less,md,scss,ts,vue,yaml,yml}\" --check",
     "release": "run-s lint test dist",
-    "test": "node ./test.js",
-    "test-coverage": "nyc run-s test test:flag",
-    "test:flag": "node --experimental-modules ./test.js"
+    "test": "run-p test:*",
+    "test-coverage": "nyc run-s test",
+    "test-coverage:cjs": "nyc run-s test:cjs test:cjs-flag",
+    "test-coverage:mjs": "nyc run-s test:mjs",
+    "test:cjs": "node ./test.cjs",
+    "test:cjs-flag": "node --experimental-modules ./test.cjs",
+    "test:mjs": "node ./test.mjs"
   },
   "config": {
     "commitizen": {
