@@ -67,7 +67,7 @@ function load(url) {
   }
 
   return check().then(function tryImportModule() {
-    importOrThrow(url)
+    return importOrThrow(url)
   })
 }
 
