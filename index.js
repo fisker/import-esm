@@ -1,16 +1,8 @@
 'use strict'
 
 var TEST_MODULE = 'data:text/javascript,'
-var import_
 var supported = ''
 var UNSUPPORTED_MESSAGE = 'ECMAScript Modules are not supported.'
-
-function importModule(url) {
-  if (!import_) {
-    import_ = require('./import')
-  }
-  return import_(url)
-}
 
 function returnTrue() {
   return true
@@ -33,7 +25,7 @@ function check() {
   var promise = Promise.resolve(false)
 
   try {
-    promise = importModule(TEST_MODULE).then(returnTrue, returnFalse)
+    promise = require('./import')(TEST_MODULE).then(returnTrue, returnFalse)
   } catch (_) {}
 
   // We don't need wait for cache called
@@ -46,9 +38,9 @@ function checkSync() {
   return supported
 }
 
-function importOrThrow(url, reject) {
+function importOrThrow(url, parentModule, reject) {
   if (supported) {
-    return importModule(url)
+    return require('./import-from')(url, parentModule)
   }
 
   var error = new Error(UNSUPPORTED_MESSAGE)
@@ -62,12 +54,13 @@ function importOrThrow(url, reject) {
 }
 
 function load(url) {
+  var parentModule = require('parent-module')()
   if (supported !== '') {
-    return importOrThrow(url, true)
+    return importOrThrow(url, parentModule, true)
   }
 
   return check().then(function tryImportModule() {
-    return importOrThrow(url)
+    return importOrThrow(url, parentModule)
   })
 }
 

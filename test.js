@@ -79,8 +79,7 @@ function testLoad() {
   equal(isPromise(promise), true)
   if (supported) {
     promise.then(function(module) {
-      equal(typeof module, 'object')
-      equal('default' in module, true)
+      equal(Object.prototype.toString.call(module), '[object Module]')
       equal(module.name, 'foo')
     })
     importEsm('./fixtures/commonjs-package/name.mjs').then(function(module) {
@@ -88,6 +87,9 @@ function testLoad() {
     })
     importEsm('./fixtures/module-package/name.mjs').then(function(module) {
       equal(module.name, 'module-package')
+    })
+    require('./fixtures/import-from-directory').then(function(module) {
+      equal(module.name, 'bar')
     })
   } else {
     promise.then(null, function(error) {
