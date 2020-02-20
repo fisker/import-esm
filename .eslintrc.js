@@ -24,5 +24,11 @@ module.exports = {
         'object-shorthand': 'off',
       },
     },
+    {
+      files: 'test.js',
+      rules: {
+        'unicorn/no-process-exit': 'off',
+      },
+    },
   ],
 }

@@ -2,7 +2,9 @@
 
 var TEST_MODULE = 'data:text/javascript,'
 var import_
+var cached = false
 var supported
+var UNSUPPORTED_MESSAGE = 'ECMAScript Modules are not supported.'
 
 function importModule(url) {
   if (!import_) {
@@ -11,29 +13,34 @@ function importModule(url) {
   return import_(url)
 }
 
-function checkLoadedModule() {
+function returnTrue() {
   return true
 }
 
 function returnFalse() {
   return false
 }
+function cacheResult(result) {
+  cached = true
+  supported = result
+  return result
+}
 
 function check() {
-  if (typeof supported === 'boolean') {
+  if (cached) {
     return Promise.resolve(supported)
   }
 
   var promise = Promise.resolve(false)
 
   try {
-    promise = importModule(TEST_MODULE).then(checkLoadedModule, returnFalse)
+    promise = importModule(TEST_MODULE).then(returnTrue, returnFalse)
   } catch (_) {}
 
-  return promise.then(function(result) {
-    supported = result
-    return result
-  })
+  // We don't need wait for cache called
+  promise.then(cacheResult)
+
+  return promise
 }
 
 function importOrThrow(url, reject) {
@@ -41,20 +48,22 @@ function importOrThrow(url, reject) {
     return importModule(url)
   }
 
-  const error = new Error('ECMAScript Modules are not supported.')
-  // if (reject) {
-  //   return Promise.reject(error)
-  // }
+  const error = new Error(UNSUPPORTED_MESSAGE)
+
+  if (reject) {
+    // Always return `Promise`
+    return Promise.reject(error)
+  }
 
   throw error
 }
 
 function load(url) {
-  if (typeof supported === 'boolean') {
+  if (cached) {
     return importOrThrow(url, true)
   }
 
-  return check().then(function() {
+  return check().then(function tryImportModule() {
     importOrThrow(url)
   })
 }

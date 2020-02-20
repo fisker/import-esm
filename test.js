@@ -101,15 +101,10 @@ testCheck()
 // Make sure still returns `Promise` when result is already cached
 importEsm
   .check()
-  .then(testCheck)
-  .catch(function() {
-    console.log('`testCheck` should never throws')
-    process.exit(1)
+  .then(function() {
+    testCheck()
+    testLoad()
   })
-
-importEsm
-  .check()
-  .then(testLoad)
   .catch(function() {
     console.log('`testLoad` should never throws')
     process.exit(1)
