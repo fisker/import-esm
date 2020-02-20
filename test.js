@@ -97,6 +97,9 @@ function testLoad() {
 
 equal(typeof importEsm, 'function')
 equal(typeof importEsm.check, 'function')
+equal(typeof importEsm.checkSync, 'function')
+
+equal(importEsm.checkSync(), '')
 
 testLoad()
 testCheck()
@@ -106,6 +109,7 @@ testCheck()
 importEsm
   .check()
   .then(function() {
+    equal(importEsm.checkSync(), supported)
     testCheck()
     testLoad()
   })
