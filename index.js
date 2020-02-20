@@ -2,6 +2,7 @@
 
 var TEST_MODULE = 'data:text/javascript,'
 var import_
+var supported
 
 function importModule(url) {
   if (!import_) {
@@ -11,9 +12,13 @@ function importModule(url) {
 }
 
 function check() {
+  if (typeof supported === 'boolean') {
+    return Promise.resolve(supported)
+  }
   try {
     return importModule(TEST_MODULE).then(
       function() {
+        supported = true
         return true
       },
       function() {
@@ -26,13 +31,21 @@ function check() {
   return Promise.resolve(false)
 }
 
-function load(url) {
-  return check().then(function(supported) {
-    if (supported) {
-      return importModule(url)
-    }
+function importOrThrow(url) {
+  if (supported) {
+    return importModule(url)
+  }
 
-    throw new Error('ECMAScript Modules are not supported.')
+  throw new Error('ECMAScript Modules are not supported.')
+}
+
+function load(url) {
+  if (typeof supported === 'boolean') {
+    return importOrThrow(url)
+  }
+
+  return check().then(function() {
+    importOrThrow(url)
   })
 }
 
