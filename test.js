@@ -45,15 +45,15 @@ function isPromise(promise) {
   )
 }
 
-equal(typeof importEsm, 'function')
+function testCheck() {
+  var check = importEsm.check()
+  equal(isPromise(check), true)
 
-var check = importEsm.check()
-equal(isPromise(check), true)
-
-check.then(function(result) {
-  equal(typeof result, 'boolean')
-  equal(result, supported)
-})
+  check.then(function(result) {
+    equal(typeof result, 'boolean')
+    equal(result, supported)
+  })
+}
 
 function testLoad() {
   var load = importEsm('./fixtures/foo.mjs')
@@ -78,7 +78,12 @@ function testLoad() {
   }
 }
 
-testLoad()
+equal(typeof importEsm, 'function')
+equal(typeof importEsm.check, 'function')
 
-// Make sure `load` still returns `Promise` when result is already cached
-check().then(testLoad)
+testLoad()
+testCheck()
+
+// Make sure still returns `Promise` when result is already cached
+importEsm.check().then(testCheck)
+importEsm.check().then(testLoad)
