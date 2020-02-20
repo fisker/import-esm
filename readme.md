@@ -81,6 +81,59 @@ const importEsm = require('import-esm')
 })()
 ```
 
+### importEsm.checkSync()
+
+The cached result of ECMAScript Modules support check.
+
+Returns a `boolean | ''`.
+
+**Note**: Since there is no sync way to detect ECMAScript Modules support, this method returns `''` (empty string), if we don't know support result yet. \*\*
+
+To get the real result, you have to compare `importEsm.checkSync()` with `boolean`
+
+```js
+const importEsm = require('import-esm')
+
+const isEsmSupported = importEsm.checkSync()
+
+if (isEsmSupported === true) {
+  // ECMAScript Modules are supported.
+} else if (isEsmSupported === false) {
+  // ECMAScript Modules are not supported.
+} else {
+  // We don't know yet.
+}
+```
+
+This method is design for easier use in case like this:
+
+```js
+const importEsm = require('import-esm')
+
+const importModule = async url => {
+  try {
+    return await importEsm(url)
+  } catch (error) {
+    // Runs on every time
+    handleNonSupportedError(error)
+  }
+}
+
+const importModule = async url => {
+  if (importEsm.checkSync()) {
+    // Please make sure your engine knows `import()` syntax
+    return import(url)
+  }
+
+  try {
+    return await importEsm(url)
+  } catch (error) {
+    // Runs only if we don't know support result yet
+    handleNonSupportedError(error)
+  }
+}
+```
+
 ## Known Issue(s)
 
 - On `Node.js@<=0.10`, you need polyfill `Promise` yourself.

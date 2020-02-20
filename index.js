@@ -1,11 +1,8 @@
 'use strict'
 
-var RANDOM_NUMBER = Math.random()
-var TEST_MODULE =
-  'data:text/javascript,export const number = ' + RANDOM_NUMBER + ';'
+var TEST_MODULE = 'data:text/javascript,'
 var import_
-var cached = false
-var supported
+var supported = ''
 var UNSUPPORTED_MESSAGE = 'ECMAScript Modules are not supported.'
 
 function importModule(url) {
@@ -15,8 +12,8 @@ function importModule(url) {
   return import_(url)
 }
 
-function checkModule(module) {
-  return module && module.number === RANDOM_NUMBER
+function returnTrue() {
+  return true
 }
 
 function returnFalse() {
@@ -24,20 +21,19 @@ function returnFalse() {
 }
 
 function cacheResult(result) {
-  cached = true
   supported = result
   return result
 }
 
 function check() {
-  if (cached) {
+  if (supported !== '') {
     return Promise.resolve(supported)
   }
 
   var promise = Promise.resolve(false)
 
   try {
-    promise = importModule(TEST_MODULE).then(checkModule, returnFalse)
+    promise = importModule(TEST_MODULE).then(returnTrue, returnFalse)
   } catch (_) {}
 
   // We don't need wait for cache called
@@ -46,8 +42,12 @@ function check() {
   return promise
 }
 
+function checkSync() {
+  return supported
+}
+
 function importOrThrow(url, reject) {
-  if (supported) {
+  if (supported !== '') {
     return importModule(url)
   }
 
@@ -62,7 +62,7 @@ function importOrThrow(url, reject) {
 }
 
 function load(url) {
-  if (cached) {
+  if (supported !== '') {
     return importOrThrow(url, true)
   }
 
@@ -73,3 +73,4 @@ function load(url) {
 
 module.exports = load
 module.exports.check = check
+module.exports.checkSync = checkSync
