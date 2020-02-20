@@ -1,6 +1,8 @@
 'use strict'
 
-var TEST_MODULE = 'data:text/javascript,'
+var RANDOM_NUMBER = Math.random()
+var TEST_MODULE =
+  'data:text/javascript,export const number = ' + RANDOM_NUMBER + ';'
 var import_
 var supported = ''
 var UNSUPPORTED_MESSAGE = 'ECMAScript Modules are not supported.'
@@ -12,8 +14,8 @@ function importModule(url) {
   return import_(url)
 }
 
-function returnTrue() {
-  return true
+function checkModule(module) {
+  return module && module.number === RANDOM_NUMBER
 }
 
 function returnFalse() {
@@ -33,7 +35,7 @@ function check() {
   var promise = Promise.resolve(false)
 
   try {
-    promise = importModule(TEST_MODULE).then(returnTrue, returnFalse)
+    promise = importModule(TEST_MODULE).then(checkModule, returnFalse)
   } catch (_) {}
 
   // We don't need wait for cache called
