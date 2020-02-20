@@ -2,8 +2,7 @@
 
 var TEST_MODULE = 'data:text/javascript,'
 var import_
-var cached = false
-var supported
+var supported = ''
 var UNSUPPORTED_MESSAGE = 'ECMAScript Modules are not supported.'
 
 function importModule(url) {
@@ -22,13 +21,12 @@ function returnFalse() {
 }
 
 function cacheResult(result) {
-  cached = true
   supported = result
   return result
 }
 
 function check() {
-  if (cached) {
+  if (supported !== '') {
     return Promise.resolve(supported)
   }
 
@@ -42,6 +40,10 @@ function check() {
   promise.then(cacheResult)
 
   return promise
+}
+
+function checkSync() {
+  return supported
 }
 
 function importOrThrow(url, reject) {
@@ -60,7 +62,7 @@ function importOrThrow(url, reject) {
 }
 
 function load(url) {
-  if (cached) {
+  if (supported !== '') {
     return importOrThrow(url, true)
   }
 
@@ -71,3 +73,4 @@ function load(url) {
 
 module.exports = load
 module.exports.check = check
+module.exports.checkSync = checkSync

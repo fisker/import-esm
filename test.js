@@ -52,8 +52,9 @@ function testCheck() {
   var promise
   try {
     promise = importEsm.check()
-  } catch (_) {
+  } catch (error) {
     console.log('`importEsm.check()` should never throws')
+    console.error(error)
     process.exit(1)
   }
 
@@ -69,8 +70,9 @@ function testLoad() {
   var promise
   try {
     promise = importEsm('./fixtures/foo.mjs')
-  } catch (_) {
+  } catch (error) {
     console.log('`importEsm()` should never throws')
+    console.error(error)
     process.exit(1)
   }
 
@@ -97,6 +99,9 @@ function testLoad() {
 
 equal(typeof importEsm, 'function')
 equal(typeof importEsm.check, 'function')
+equal(typeof importEsm.checkSync, 'function')
+
+equal(importEsm.checkSync(), '')
 
 testLoad()
 testCheck()
@@ -106,6 +111,7 @@ testCheck()
 importEsm
   .check()
   .then(function() {
+    equal(importEsm.checkSync(), supported)
     testCheck()
     testLoad()
   })

@@ -31,6 +31,7 @@ module.exports = {
         strict: 'off',
         'object-shorthand': 'off',
         'es/no-promise': 'off',
+        'prefer-template': 'off',
       },
     },
     {
