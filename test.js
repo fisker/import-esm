@@ -46,20 +46,34 @@ function isPromise(promise) {
 }
 
 function testCheck() {
-  var check = importEsm.check()
-  equal(isPromise(check), true)
+  var promise
+  try {
+    promise = importEsm.check()
+  } catch (_) {
+    console.log('`importEsm.check()` should never throws')
+    process.exit(1)
+  }
 
-  check.then(function(result) {
+  equal(isPromise(promise), true)
+
+  promise.then(function(result) {
     equal(typeof result, 'boolean')
     equal(result, supported)
   })
 }
 
 function testLoad() {
-  var load = importEsm('./fixtures/foo.mjs')
-  equal(isPromise(load), true)
+  var promise
+  try {
+    promise = importEsm('./fixtures/foo.mjs')
+  } catch (_) {
+    console.log('`importEsm()` should never throws')
+    process.exit(1)
+  }
+
+  equal(isPromise(promise), true)
   if (supported) {
-    load.then(function(module) {
+    promise.then(function(module) {
       equal(typeof module, 'object')
       equal('default' in module, true)
       equal(module.name, 'foo')
@@ -71,7 +85,7 @@ function testLoad() {
       equal(module.name, 'module-package')
     })
   } else {
-    load.then(null, function(error) {
+    promise.then(null, function(error) {
       equal(error instanceof Error, true)
       equal(error.message, 'ECMAScript Modules are not supported.')
     })
@@ -85,5 +99,18 @@ testLoad()
 testCheck()
 
 // Make sure still returns `Promise` when result is already cached
-importEsm.check().then(testCheck)
-importEsm.check().then(testLoad)
+importEsm
+  .check()
+  .then(testCheck)
+  .catch(function() {
+    console.log('`testCheck` should never throws')
+    process.exit(1)
+  })
+
+importEsm
+  .check()
+  .then(testLoad)
+  .catch(function() {
+    console.log('`testLoad` should never throws')
+    process.exit(1)
+  })

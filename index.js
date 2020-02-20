@@ -11,37 +11,47 @@ function importModule(url) {
   return import_(url)
 }
 
+function checkLoadedModule() {
+  return true
+}
+
+function returnFalse() {
+  return false
+}
+
 function check() {
   if (typeof supported === 'boolean') {
     return Promise.resolve(supported)
   }
+
+  var promise = Promise.resolve(false)
+
   try {
-    return importModule(TEST_MODULE).then(
-      function() {
-        supported = true
-        return true
-      },
-      function() {
-        return false
-      }
-    )
+    promise = importModule(TEST_MODULE).then(checkLoadedModule, returnFalse)
   } catch (_) {}
 
-  /* istanbul ignore next */
-  return Promise.resolve(false)
+  return promise.then(function(result) {
+    supported = result
+    return result
+  })
 }
 
-function importOrThrow(url) {
+function importOrThrow(url, reject) {
   if (supported) {
     return importModule(url)
   }
 
-  throw new Error('ECMAScript Modules are not supported.')
+  const error = new Error('ECMAScript Modules are not supported.')
+  // if (reject) {
+  //   return Promise.reject(error)
+  // }
+
+  throw error
 }
 
 function load(url) {
   if (typeof supported === 'boolean') {
-    return importOrThrow(url)
+    return importOrThrow(url, true)
   }
 
   return check().then(function() {
