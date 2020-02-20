@@ -47,7 +47,7 @@ function checkSync() {
 }
 
 function importOrThrow(url, reject) {
-  if (supported !== '') {
+  if (supported) {
     return importModule(url)
   }
 
