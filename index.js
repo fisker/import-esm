@@ -20,6 +20,7 @@ function returnTrue() {
 function returnFalse() {
   return false
 }
+
 function cacheResult(result) {
   cached = true
   supported = result
@@ -48,7 +49,7 @@ function importOrThrow(url, reject) {
     return importModule(url)
   }
 
-  const error = new Error(UNSUPPORTED_MESSAGE)
+  var error = new Error(UNSUPPORTED_MESSAGE)
 
   if (reject) {
     // Always return `Promise`
