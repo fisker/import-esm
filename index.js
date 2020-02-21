@@ -38,9 +38,9 @@ function checkSync() {
   return supported
 }
 
-function importOrThrow(url, parentModule, reject) {
+function importOrThrow(url, from, reject) {
   if (supported) {
-    return require('./import-from')(url, parentModule)
+    return require('./import-from')(url, from)
   }
 
   var error = new Error(UNSUPPORTED_MESSAGE)
@@ -54,13 +54,18 @@ function importOrThrow(url, parentModule, reject) {
 }
 
 function load(url) {
-  var parentModule = require('parent-module')()
+  var from
+  if (supported !== false) {
+    try {
+      from = require('parent-module')()
+    } catch (_) {}
+  }
   if (supported !== '') {
-    return importOrThrow(url, parentModule, true)
+    return importOrThrow(url, from, true)
   }
 
   return check().then(function tryImportModule() {
-    return importOrThrow(url, parentModule)
+    return importOrThrow(url, from)
   })
 }
 
