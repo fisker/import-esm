@@ -1,6 +1,6 @@
 {
   "name": "import-esm",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Import ECMAScript modules in the safe way",
   "keywords": [
     "esm",
