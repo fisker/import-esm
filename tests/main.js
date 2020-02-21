@@ -114,10 +114,16 @@ importEsm
   .check()
   .then(function() {
     equal(importEsm.checkSync(), supported)
-    testCheck()
-    testLoad()
   })
-  .catch(function() {
+  .then(testCheck)
+  .catch(function(error) {
+    console.log('`testCheck` should never throws')
+    console.error(error)
+    process.exit(1)
+  })
+  .then(testLoad)
+  .catch(function(error) {
     console.log('`testLoad` should never throws')
+    console.error(error)
     process.exit(1)
   })
