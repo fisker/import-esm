@@ -1,8 +1,9 @@
 'use strict'
 
 var TEST_MODULE = 'data:text/javascript,'
-var supported = ''
 var UNSUPPORTED_MESSAGE = 'ECMAScript Modules are not supported.'
+// Initial to a falsely value
+var supported = ''
 
 function returnTrue() {
   return true
