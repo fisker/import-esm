@@ -27,7 +27,8 @@
   "main": "index.js",
   "files": [
     "index.js",
-    "import.js"
+    "import.js",
+    "import-from.js"
   ],
   "scripts": {
     "clean": "run-p clean:*",
