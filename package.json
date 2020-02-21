@@ -45,9 +45,9 @@
     "lint:package-json": "yarn run format:package-json --check",
     "lint:prettier": "prettier \"**/*.{css,html,js,json,less,md,scss,ts,vue,yaml,yml}\" --check",
     "release": "run-s lint test dist",
-    "test": "node ./test.js",
+    "test": "node ./tests/main.js",
     "test-coverage": "nyc run-s test test:flag",
-    "test:flag": "node --experimental-modules ./test.js"
+    "test:flag": "node --experimental-modules ./tests/main.js"
   },
   "config": {
     "commitizen": {

@@ -57,6 +57,8 @@ function load(url) {
   var from
   if (supported !== false) {
     try {
+      // This can't call from `Promise#then`
+      // and we don't install it on legacy versions of Node.js
       from = require('parent-module')()
     } catch (_) {}
   }

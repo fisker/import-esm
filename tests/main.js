@@ -2,7 +2,7 @@
 
 var assert = require('assert')
 // eslint-disable-next-line unicorn/import-index
-var importEsm = require('./index')
+var importEsm = require('../index')
 
 if (typeof Promise === 'undefined') {
   global.Promise = require('./third-party/lie.min')
@@ -114,10 +114,16 @@ importEsm
   .check()
   .then(function() {
     equal(importEsm.checkSync(), supported)
-    testCheck()
-    testLoad()
   })
-  .catch(function() {
+  .then(testCheck)
+  .catch(function(error) {
+    console.log('`testCheck` should never throws')
+    console.error(error)
+    process.exit(1)
+  })
+  .then(testLoad)
+  .catch(function(error) {
     console.log('`testLoad` should never throws')
+    console.error(error)
     process.exit(1)
   })

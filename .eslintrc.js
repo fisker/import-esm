@@ -15,9 +15,10 @@ module.exports = {
   settings: {},
   plugins: ['es'],
   globals: {},
+  rules: {strict: 'off'},
   overrides: [
     {
-      files: '{index,import,test}.js',
+      files: ['index.js', 'import.js', 'tests/main.js'],
       extends: [
         'plugin:es/no-2019',
         'plugin:es/no-2018',
@@ -33,11 +34,6 @@ module.exports = {
         'es/no-promise': 'off',
         'prefer-template': 'off',
         'prefer-destructuring': 'off',
-      },
-    },
-    {
-      files: 'test.js',
-      rules: {
         'unicorn/no-process-exit': 'off',
       },
     },
