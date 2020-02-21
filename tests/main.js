@@ -80,16 +80,16 @@ function testLoad() {
   if (supported) {
     promise.then(function(module) {
       equal(Object.prototype.toString.call(module), '[object Module]')
-      equal(module.name, 'foo')
+      equal(module.filename, 'foo.mjs')
     })
-    importEsm('./fixtures/commonjs-package/name.mjs').then(function(module) {
-      equal(module.name, 'commonjs-package')
+    importEsm('./fixtures/commonjs-package/index.mjs').then(function(module) {
+      equal(module.packageName, 'commonjs-package')
     })
-    importEsm('./fixtures/module-package/name.mjs').then(function(module) {
-      equal(module.name, 'module-package')
+    importEsm('./fixtures/module-package/index.mjs').then(function(module) {
+      equal(module.packageName, 'module-package')
     })
     require('./fixtures/import-from-directory').then(function(module) {
-      equal(module.name, 'bar')
+      equal(module.filename, 'bar.mjs')
     })
   } else {
     promise.then(null, function(error) {

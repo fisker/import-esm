@@ -1,1 +1,3 @@
-export const name = 'foo'
+import {basename} from 'path'
+
+export const filename = basename(import.meta.url)
