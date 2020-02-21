@@ -1,9 +1,9 @@
 const path = require('path')
 const {pathToFileURL} = require('url')
 
-function importEsmFrom(url, parentModule) {
-  if (typeof url === 'string' && url[0] === '.') {
-    const directory = parentModule ? path.dirname(parentModule) : process.cwd()
+function importFrom(url, from) {
+  if (typeof url === 'string' && !path.isAbsolute(url)) {
+    const directory = from ? path.dirname(from) : process.cwd()
     url = path.join(directory, url)
   }
   if (typeof url === 'string' && !/^(?:data|file):/.test(url)) {
@@ -12,4 +12,4 @@ function importEsmFrom(url, parentModule) {
   return import(url)
 }
 
-module.exports = importEsmFrom
+module.exports = importFrom
