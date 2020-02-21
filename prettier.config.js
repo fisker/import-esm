@@ -8,7 +8,7 @@
 module.exports = require('@fisker/prettier-config').extend({
   overrides: [
     {
-      files: '{index,import,test}.js',
+      files: ['index.js', 'import.js', 'tests/main.js'],
       options: {trailingComma: 'none'},
     },
   ],

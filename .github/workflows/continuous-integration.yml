@@ -97,7 +97,7 @@ jobs:
           node-version: ${{ matrix.node_version }}
 
       - name: Run Test
-        run: node ./test.js
+        run: node ./tests/main.js
 
       - name: Run Test with --experimental-modules
         # those version don't support `--experimental-modules`
@@ -108,7 +108,7 @@ jobs:
           matrix.node_version != '4' &&
           matrix.node_version != '0.12' &&
           matrix.node_version != '0.10'
-        run: node --experimental-modules ./test.js
+        run: node --experimental-modules ./tests/main.js
 
   lint:
     name: Lint
