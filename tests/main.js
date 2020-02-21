@@ -84,12 +84,15 @@ function testLoad() {
     })
     importEsm('./fixtures/commonjs-package/index.mjs').then(function(module) {
       equal(module.packageName, 'commonjs-package')
-    })
+    }, throwNotFoundModuleError)
     importEsm('./fixtures/module-package/index.mjs').then(function(module) {
       equal(module.packageName, 'module-package')
-    })
+    }, throwNotFoundModuleError)
     require('./fixtures/import-from-directory').then(function(module) {
       equal(module.filename, 'bar.mjs')
+    }, throwNotFoundModuleError)
+    importEsm('./fixtures/non-exists-file.mjs').then(null, function(error) {
+      equal(/Cannot find module/.test(error.message), true)
     })
   } else {
     promise.then(null, function(error) {
@@ -97,6 +100,12 @@ function testLoad() {
       equal(error.message, 'ECMAScript Modules are not supported.')
     })
   }
+}
+
+function throwNotFoundModuleError(error) {
+  console.log('Should find module')
+  console.error(error)
+  process.exit(1)
 }
 
 equal(typeof importEsm, 'function')
