@@ -60,6 +60,9 @@
       "lcov"
     ]
   },
+  "dependencies": {
+    "parent-module": "2.0.0"
+  },
   "devDependencies": {
     "@commitlint/cli": "8.3.5",
     "@fisker/commitlint-config": "1.1.7",

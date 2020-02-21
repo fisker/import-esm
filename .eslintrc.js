@@ -32,6 +32,7 @@ module.exports = {
         'object-shorthand': 'off',
         'es/no-promise': 'off',
         'prefer-template': 'off',
+        'prefer-destructuring': 'off',
       },
     },
     {
