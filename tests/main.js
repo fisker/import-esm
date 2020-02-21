@@ -69,7 +69,7 @@ function testCheck() {
 function testLoad() {
   var promise
   try {
-    promise = importEsm('../fixtures/foo.mjs')
+    promise = importEsm('./fixtures/foo.mjs')
   } catch (error) {
     console.log('`importEsm()` should never throws')
     console.error(error)
@@ -82,13 +82,13 @@ function testLoad() {
       equal(Object.prototype.toString.call(module), '[object Module]')
       equal(module.name, 'foo')
     })
-    importEsm('../fixtures/commonjs-package/name.mjs').then(function(module) {
+    importEsm('./fixtures/commonjs-package/name.mjs').then(function(module) {
       equal(module.name, 'commonjs-package')
     })
-    importEsm('../fixtures/module-package/name.mjs').then(function(module) {
+    importEsm('./fixtures/module-package/name.mjs').then(function(module) {
       equal(module.name, 'module-package')
     })
-    require('../fixtures/import-from-directory').then(function(module) {
+    require('./fixtures/import-from-directory').then(function(module) {
       equal(module.name, 'bar')
     })
   } else {

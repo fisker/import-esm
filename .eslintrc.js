@@ -15,6 +15,7 @@ module.exports = {
   settings: {},
   plugins: ['es'],
   globals: {},
+  rules: {strict: 'off'},
   overrides: [
     {
       files: ['index.js', 'import.js', 'tests/main.js'],
