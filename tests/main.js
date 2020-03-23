@@ -10,12 +10,7 @@ if (typeof Promise === 'undefined') {
 
 var equal = assert.strictEqual || assert.equal
 var isExperimentalModulesFlag = process.execArgv[0] === '--experimental-modules'
-var engine = Number(
-  process.version
-    .slice(1)
-    .split('.')
-    .shift()
-)
+var engine = Number(process.version.slice(1).split('.').shift())
 
 var supported = engine >= 13
 
@@ -26,12 +21,12 @@ if (engine === 12 && isExperimentalModulesFlag) {
 // Make sure global `import` function doesn't effect result
 if (supported) {
   // eslint-disable-next-line es/no-keyword-properties
-  global.import = function() {
+  global.import = function () {
     return Promise.reject(new Error('Error from `global.import`.'))
   }
 } else {
   // eslint-disable-next-line es/no-keyword-properties
-  global.import = function() {
+  global.import = function () {
     return Promise.resolve({
       // eslint-disable-next-line es/no-keyword-properties
       default: 'A fake module from `global.import`.'
@@ -60,7 +55,7 @@ function testCheck() {
 
   equal(isPromise(promise), true)
 
-  promise.then(function(result) {
+  promise.then(function (result) {
     equal(typeof result, 'boolean')
     equal(result, supported)
   })
@@ -78,24 +73,24 @@ function testLoad() {
 
   equal(isPromise(promise), true)
   if (supported) {
-    promise.then(function(module) {
+    promise.then(function (module) {
       equal(Object.prototype.toString.call(module), '[object Module]')
       equal(module.filename, 'foo.mjs')
     })
-    importEsm('./fixtures/commonjs-package/index.mjs').then(function(module) {
+    importEsm('./fixtures/commonjs-package/index.mjs').then(function (module) {
       equal(module.packageName, 'commonjs-package')
     }, throwNotFoundModuleError)
-    importEsm('./fixtures/module-package/index.mjs').then(function(module) {
+    importEsm('./fixtures/module-package/index.mjs').then(function (module) {
       equal(module.packageName, 'module-package')
     }, throwNotFoundModuleError)
-    require('./fixtures/import-from-directory').then(function(module) {
+    require('./fixtures/import-from-directory').then(function (module) {
       equal(module.filename, 'bar.mjs')
     }, throwNotFoundModuleError)
-    importEsm('./fixtures/non-exists-file.mjs').then(null, function(error) {
+    importEsm('./fixtures/non-exists-file.mjs').then(null, function (error) {
       equal(/Cannot find module/.test(error.message), true)
     })
   } else {
-    promise.then(null, function(error) {
+    promise.then(null, function (error) {
       equal(error instanceof Error, true)
       equal(error.message, 'ECMAScript Modules are not supported.')
     })
@@ -121,17 +116,17 @@ testCheck()
 // eslint-disable-next-line es/no-keyword-properties
 importEsm
   .check()
-  .then(function() {
+  .then(function () {
     equal(importEsm.checkSync(), supported)
   })
   .then(testCheck)
-  .catch(function(error) {
+  .catch(function (error) {
     console.log('`testCheck` should never throws')
     console.error(error)
     process.exit(1)
   })
   .then(testLoad)
-  .catch(function(error) {
+  .catch(function (error) {
     console.log('`testLoad` should never throws')
     console.error(error)
     process.exit(1)

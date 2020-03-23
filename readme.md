@@ -110,7 +110,7 @@ This method is design for easier use in case like this:
 ```js
 const importEsm = require('import-esm')
 
-const importModule = async url => {
+const importModule = async (url) => {
   try {
     return await importEsm(url)
   } catch (error) {
@@ -119,7 +119,7 @@ const importModule = async url => {
   }
 }
 
-const importModule = async url => {
+const importModule = async (url) => {
   if (importEsm.checkSync()) {
     // Please make sure your engine knows `import()` syntax
     return import(url)
