@@ -35,6 +35,7 @@ module.exports = {
         'prefer-template': 'off',
         'prefer-destructuring': 'off',
         'unicorn/no-process-exit': 'off',
+        'unicorn/prefer-optional-catch-binding': 'off',
       },
     },
   ],
