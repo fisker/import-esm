@@ -9,14 +9,9 @@ if (typeof Promise === 'undefined') {
 }
 
 var equal = assert.strictEqual || assert.equal
-var isExperimentalModulesFlag = process.execArgv[0] === '--experimental-modules'
 var engine = Number(process.version.slice(1).split('.').shift())
 
-var supported = engine >= 13
-
-if (engine === 12 && isExperimentalModulesFlag) {
-  supported = true
-}
+var supported = engine >= 12
 
 // Make sure global `import` function doesn't effect result
 if (supported) {
@@ -86,11 +81,13 @@ function testLoad() {
     require('./fixtures/import-from-directory').then(function (module) {
       equal(module.filename, 'bar.mjs')
     }, throwNotFoundModuleError)
-    importEsm('./fixtures/non-exists-file.mjs').then(null, function (error) {
+    importEsm('./fixtures/non-exists-file.mjs').then(undefined, function (
+      error
+    ) {
       equal(/Cannot find module/.test(error.message), true)
     })
   } else {
-    promise.then(null, function (error) {
+    promise.then(undefined, function (error) {
       equal(error instanceof Error, true)
       equal(error.message, 'ECMAScript Modules are not supported.')
     })
