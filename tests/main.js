@@ -81,11 +81,12 @@ function testLoad() {
     require('./fixtures/import-from-directory').then(function (module) {
       equal(module.filename, 'bar.mjs')
     }, throwNotFoundModuleError)
-    importEsm('./fixtures/non-exists-file.mjs').then(undefined, function (
-      error
-    ) {
-      equal(/Cannot find module/.test(error.message), true)
-    })
+    importEsm('./fixtures/non-exists-file.mjs').then(
+      undefined,
+      function (error) {
+        equal(/Cannot find module/.test(error.message), true)
+      }
+    )
   } else {
     promise.then(undefined, function (error) {
       equal(error instanceof Error, true)
