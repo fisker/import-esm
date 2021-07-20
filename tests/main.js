@@ -1,7 +1,6 @@
 'use strict'
 
 var assert = require('assert')
-// eslint-disable-next-line unicorn/import-index
 var importEsm = require('../index')
 
 if (typeof Promise === 'undefined') {
@@ -15,15 +14,12 @@ var supported = engine >= 12
 
 // Make sure global `import` function doesn't effect result
 if (supported) {
-  // eslint-disable-next-line es/no-keyword-properties
   global.import = function () {
     return Promise.reject(new Error('Error from `global.import`.'))
   }
 } else {
-  // eslint-disable-next-line es/no-keyword-properties
   global.import = function () {
     return Promise.resolve({
-      // eslint-disable-next-line es/no-keyword-properties
       default: 'A fake module from `global.import`.'
     })
   }
@@ -111,7 +107,6 @@ testLoad()
 testCheck()
 
 // Make sure still returns `Promise` when result is already cached
-// eslint-disable-next-line es/no-keyword-properties
 importEsm
   .check()
   .then(function () {
