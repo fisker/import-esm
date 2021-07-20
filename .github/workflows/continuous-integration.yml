@@ -81,11 +81,6 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node_version:
-          - "16"
-          - "15"
-          - "14"
-          - "13"
-          - "12"
           - "11"
           - "10"
           - "9"
