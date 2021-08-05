@@ -1,10 +1,11 @@
 'use strict'
 
 var assert = require('assert')
-var importEsm = require('../index')
+var process = require('process')
+var importEsm = require('..')
 
 if (typeof Promise === 'undefined') {
-  global.Promise = require('./third-party/lie.min')
+  global.Promise = require('./third-party/lie.min.js')
 }
 
 var equal = assert.strictEqual || assert.equal
@@ -74,7 +75,7 @@ function testLoad() {
     importEsm('./fixtures/module-package/index.mjs').then(function (module) {
       equal(module.packageName, 'module-package')
     }, throwNotFoundModuleError)
-    require('./fixtures/import-from-directory').then(function (module) {
+    require('./fixtures/import-from-directory.js').then(function (module) {
       equal(module.filename, 'bar.mjs')
     }, throwNotFoundModuleError)
     importEsm('./fixtures/non-exists-file.mjs').then(
