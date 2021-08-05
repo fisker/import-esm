@@ -1,7 +1,6 @@
 'use strict'
 
 var assert = require('assert')
-var process = require('process')
 var importEsm = require('..')
 
 if (typeof Promise === 'undefined') {
