@@ -1,4 +1,5 @@
 const path = require('path')
+const process = require('process')
 const {pathToFileURL} = require('url')
 
 function importFrom(url, from) {

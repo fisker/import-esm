@@ -28,6 +28,8 @@ module.exports = {
         'prefer-destructuring': 'off',
         'unicorn/no-process-exit': 'off',
         'unicorn/prefer-optional-catch-binding': 'off',
+        // Node.js 0.x don't support
+        'node/prefer-global/process': ['error', 'always'],
       },
     },
   ],

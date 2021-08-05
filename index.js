@@ -26,7 +26,7 @@ function check() {
   var promise = Promise.resolve(false)
 
   try {
-    promise = require('./import')(TEST_MODULE).then(returnTrue, returnFalse)
+    promise = require('./import.js')(TEST_MODULE).then(returnTrue, returnFalse)
   } catch (_) {}
 
   // We don't need wait for cache called
@@ -41,7 +41,7 @@ function checkSync() {
 
 function importOrThrow(url, from, reject) {
   if (supported) {
-    return require('./import-from')(url, from)
+    return require('./import-from.js')(url, from)
   }
 
   var error = new Error(UNSUPPORTED_MESSAGE)
